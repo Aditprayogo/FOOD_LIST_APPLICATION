@@ -9,41 +9,52 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Widget> _pages = [
+    CategoriesScreen(),
+    FavoritesScreen(),
+    MyProfile()
+  ];
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Center(
-            child: Text('Meal App'),
-          ),
-          bottom: TabBar(
-            indicatorColor: Colors.amber,
-            labelColor: Colors.amberAccent,
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.category),
-                text: 'Categories',
-              ),
-              Tab(
-                icon: Icon(Icons.star),
-                text: 'Favorite',
-              ),
-              Tab(
-                icon: Icon(Icons.people),
-                text: 'My Profile',
-              )
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Text('Meal App'),
         ),
-        body: TabBarView(
-          children: <Widget>[
-            CategoriesScreen(),
-            FavoritesScreen(),
-            MyProfile(),
-          ],
-        ),
+      ),
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onItemTapped,
+        backgroundColor: Theme.of(context).primaryColor,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.category),
+            title: Text('Categories'),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.favorite),
+            title: Text('Favorites'),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.people),
+            title: Text('My Profile'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber,
+        type: BottomNavigationBarType.shifting,
       ),
     );
   }
