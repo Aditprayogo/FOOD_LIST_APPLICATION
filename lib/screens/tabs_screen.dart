@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/profile_screen.dart';
 import '../screens/favorites_screen.dart';
 import '../screens/categories_screen.dart';
 
@@ -11,11 +12,15 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Meal App'),
+          title: Center(
+            child: Text('Meal App'),
+          ),
           bottom: TabBar(
+            indicatorColor: Colors.amber,
+            labelColor: Colors.amberAccent,
             tabs: <Widget>[
               Tab(
                 icon: Icon(Icons.category),
@@ -25,6 +30,10 @@ class _TabsScreenState extends State<TabsScreen> {
                 icon: Icon(Icons.star),
                 text: 'Favorite',
               ),
+              Tab(
+                icon: Icon(Icons.people),
+                text: 'My Profile',
+              )
             ],
           ),
         ),
@@ -32,6 +41,7 @@ class _TabsScreenState extends State<TabsScreen> {
           children: <Widget>[
             CategoriesScreen(),
             FavoritesScreen(),
+            MyProfile(),
           ],
         ),
       ),
