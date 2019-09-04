@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/profile_screen.dart';
 import '../screens/favorites_screen.dart';
 import '../screens/categories_screen.dart';
+import '../widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -9,10 +10,19 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<Widget> _pages = [
-    CategoriesScreen(),
-    FavoritesScreen(),
-    MyProfile()
+  final List<Map<String, Object>> _pages = [
+    {
+      'pages': CategoriesScreen(),
+      'title': 'Categories',
+    },
+    {
+      'pages': FavoritesScreen(),
+      'title': 'My Favorite',
+    },
+    {
+      'pages': Profile(),
+      'title': 'My Profile',
+    },
   ];
 
   int _selectedIndex = 0;
@@ -27,11 +37,12 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Meal App'),
-        ),
+        title: Text(_pages[_selectedIndex]['title']),
       ),
-      body: _pages[_selectedIndex],
+      drawer: Drawer(
+        child: MainDrawer(),
+      ),
+      body: _pages[_selectedIndex]['pages'],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
         backgroundColor: Theme.of(context).primaryColor,
